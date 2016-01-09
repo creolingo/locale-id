@@ -1,0 +1,53 @@
+{
+  "name": "locale-id",
+  "version": "0.0.1",
+  "description": "Parse and normalize locale ID",
+  "main": "dist/index.js",
+  "keywords": [
+    "localeID",
+    "locale-id"
+  ],
+  "files": [
+    "dist/",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "prepublish": "npm run build",
+    "test": "babel-node ./node_modules/gulp/bin/gulp.js test",
+    "build": "babel-node ./node_modules/gulp/bin/gulp.js build",
+    "coveralls": "babel-node ./node_modules/gulp/bin/gulp.js coveralls",
+    "eslint": "node ./node_modules/eslint/bin/eslint.js --ext .js,.jsx ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CherrySoftware/locale-id.git"
+  },
+  "author": "Zlatko Fedor <zlatkofedor@cherrysro.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CherrySoftware/locale-id/issues"
+  },
+  "homepage": "https://github.com/CherrySoftware/locale-id",
+  "dependencies": {
+    "lodash": "^3.10.1"
+  },
+  "devDependencies": {
+    "babel": "^5.8.34",
+    "babel-eslint": "^4.1.5",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^0.1.1",
+    "eslint-loader": "^1.1.1",
+    "eslint-plugin-react": "^3.13.1",
+    "gulp": "^3.9.0",
+    "gulp-mocha": "^2.2.0",
+    "gulp-babel": "^5.3.0",
+    "gulp-util": "^3.0.7",
+    "gulp-istanbul": "^0.10.2",
+    "gulp-coveralls": "^0.1.4",
+    "should": "^8.0.2",
+    "coveralls": "^2.11.6",
+    "isparta": "^3.5.3"
+  }
+}
