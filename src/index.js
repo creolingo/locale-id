@@ -1,5 +1,6 @@
 import capitalize from 'lodash/string/capitalize';
 import forEach from 'lodash/collection/forEach';
+import isArray from 'lodash/lang/isArray';
 
 // http://userguide.icu-project.org/locale
 export default function parse(locale) {
@@ -120,11 +121,11 @@ const splitAcceptLanguageRegEx = /([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0
 const acceptLanguageItemRegEx = /^([a-z]{1,8}(-[a-z]{1,8})?)/i;
 
 export function normalizeAcceptLanguage(acceptLanguage) {
+  const returnItems = [];
   if (!acceptLanguage) {
-    return [];
+    return returnItems;
   }
 
-  const returnItems = [];
   const items = acceptLanguage.match(splitAcceptLanguageRegEx) || [];
   forEach(items, (acceptLanguageItem) => {
     const matches = acceptLanguageItem.match(acceptLanguageItemRegEx) || [];
@@ -137,7 +138,7 @@ export function normalizeAcceptLanguage(acceptLanguage) {
   return returnItems;
 }
 
-export function getBest(supported, locale, defaultLocale, getAnyCountry) {
+export function prepareSupported(supported) {
   const lgs = {};
 
   forEach(supported, (supportedLocale) => {
@@ -165,6 +166,12 @@ export function getBest(supported, locale, defaultLocale, getAnyCountry) {
       lg.main = supportedLocale;
     }
   });
+
+  return lgs;
+}
+
+export function getBest(supported, locale, defaultLocale, getAnyCountry) {
+  const lgs = isArray(supported) ? prepareSupported(supported) : supported;
 
   const { language, country } = parse(locale);
   if (!language) {

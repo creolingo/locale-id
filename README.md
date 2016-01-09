@@ -121,6 +121,16 @@ should(getBest(['en_US', 'en_UK', 'sk_SK'], 'en-US', 'sk_SK', true)).equal('en_U
 should(getBest(['en_US', 'en_UK', 'sk_SK'], 'en', 'sk_SK', true)).equal('en_US');
 ```
 
+You can speed up getBest function:
+
+```js
+import { getBest, prepareSupported } from 'locale-id';
+
+const supported = prepareSupported(['en', 'en_US', 'en_UK', 'sk_SK']);
+
+getBest(supported, 'en-uk').should.equal('en_UK');
+```
+
 # Running Tests
 
 To run the test suite, first invoke the following command within the repo, installing the development dependencies:
