@@ -137,7 +137,7 @@ export function normalizeAcceptLanguage(acceptLanguage) {
   return returnItems;
 }
 
-export function getBest(supported, locale, defaultLocale, getFirst) {
+export function getBest(supported, locale, defaultLocale, getAnyCountry) {
   const lgs = {};
 
   forEach(supported, (supportedLocale) => {
@@ -173,10 +173,14 @@ export function getBest(supported, locale, defaultLocale, getFirst) {
 
   const { countries, main = defaultLocale, firstCountry } = lgs[language];
   if (!countries || !country) {
+    if (getAnyCountry && firstCountry) {
+      return firstCountry;
+    }
+
     return main;
   }
 
-  if (getFirst && firstCountry) {
+  if (getAnyCountry && firstCountry) {
     return countries[country] ? countries[country] : firstCountry;
   }
 

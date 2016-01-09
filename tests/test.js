@@ -108,7 +108,8 @@ describe('LocaleID', () => {
     should(getBest(['en', 'en_US', 'en_UK', 'sk_SK'], 'sk-md')).equal(void 0);
     should(getBest(['en', 'en_US', 'en_UK', 'sk_SK'], 'sk-md', 'en')).equal('en');
     should(getBest(['en', 'en_US', 'en_UK', 'sk_SK'], 'sk-md', 'en', true)).equal('sk_SK');
+
+    should(getBest(['en_US', 'en_UK', 'sk_SK'], 'en-US', 'sk_SK', true)).equal('en_US');
+    should(getBest(['en_US', 'en_UK', 'sk_SK'], 'en', 'sk_SK', true)).equal('en_US');
   });
-
-
 });
