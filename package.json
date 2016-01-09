@@ -1,6 +1,6 @@
 {
   "name": "locale-id",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Parse and normalize locale ID",
   "main": "dist/index.js",
   "keywords": [
