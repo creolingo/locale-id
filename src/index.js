@@ -167,12 +167,12 @@ export function getBest(supported, locale, defaultLocale, getFirst) {
   });
 
   const { language, country } = parse(locale);
-  const { countries, main = defaultLocale, firstCountry } = lgs[language];
-  if (!countries) {
-    return void 0;
+  if (!language) {
+    return defaultLocale;
   }
 
-  if (!country) {
+  const { countries, main = defaultLocale, firstCountry } = lgs[language];
+  if (!countries || !country) {
     return main;
   }
 
