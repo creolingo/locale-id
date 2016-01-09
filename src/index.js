@@ -1,4 +1,5 @@
 import capitalize from 'lodash/string/capitalize';
+import forEach from 'lodash/collection/forEach';
 
 // http://userguide.icu-project.org/locale
 export default function parse(locale) {
@@ -113,4 +114,71 @@ export function normalize(locale, delimeter = '_') {
   }
 
   return result;
+}
+
+const splitAcceptLanguageRegEx = /([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/ig;
+const acceptLanguageItemRegEx = /^([a-z]{1,8}(-[a-z]{1,8})?)/i;
+
+export function normalizeAcceptLanguage(acceptLanguage) {
+  if (!acceptLanguage) {
+    return [];
+  }
+
+  const returnItems = [];
+  const items = acceptLanguage.match(splitAcceptLanguageRegEx) || [];
+  forEach(items, (acceptLanguageItem) => {
+    const matches = acceptLanguageItem.match(acceptLanguageItemRegEx) || [];
+    const locale = normalize(matches[0]);
+    if (locale) {
+      returnItems.push(locale);
+    }
+  });
+
+  return returnItems;
+}
+
+export function getBest(supported, locale, defaultLocale, getFirst) {
+  const lgs = {};
+
+  forEach(supported, (supportedLocale) => {
+    const { language, country } = parse(supportedLocale);
+    if (!language) {
+      throw new Error(`Locale ${supportedLocale} is not parsable`);
+    }
+
+    if (!lgs[language]) {
+      lgs[language] = {
+        countries: {},
+        firstCountry: void 0,
+        main: void 0,
+      };
+    }
+
+    const lg = lgs[language];
+    if (country) {
+      lg.countries[country] = supportedLocale;
+
+      if (!lg.firstCountry) {
+        lg.firstCountry = supportedLocale;
+      }
+    } else {
+      lg.main = supportedLocale;
+    }
+  });
+
+  const { language, country } = parse(locale);
+  const { countries, main = defaultLocale, firstCountry } = lgs[language];
+  if (!countries) {
+    return void 0;
+  }
+
+  if (!country) {
+    return main;
+  }
+
+  if (getFirst && firstCountry) {
+    return countries[country] ? countries[country] : firstCountry;
+  }
+
+  return countries[country] ? countries[country] : main;
 }

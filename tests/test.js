@@ -1,5 +1,13 @@
 import should from 'should';
-import parse, { getLanguage, normalize, getScript, getCountry, getKeyword, getVariant } from '../src';
+import parse, { getLanguage,
+  normalize,
+  getScript,
+  getCountry,
+  getKeyword,
+  getVariant,
+  normalizeAcceptLanguage,
+  getBest,
+} from '../src';
 
 describe('LocaleID', () => {
   it('should be able to parse locale IDs', () => {
@@ -87,4 +95,20 @@ describe('LocaleID', () => {
   it('should be able to use getKeyword', () => {
     getKeyword('sr_Latn_RS_REVISED@currency=USD').should.equal('currency=USD');
   });
+
+  it('should be able to parse acceptLanguage', () => {
+    normalizeAcceptLanguage('da, en-gb;q=0.8, en;q=0.7').should.containDeep(['da', 'en_GB', 'en']);
+  });
+
+  it('should be able to get best match', () => {
+    getBest(['en', 'en_US', 'en_UK', 'sk_SK'], 'en-uk').should.equal('en_UK');
+    getBest(['en', 'en_US', 'en_UK', 'sk_SK'], 'en-br').should.equal('en');
+    getBest(['en', 'en_US', 'en_UK', 'sk_SK'], 'sk-SK').should.equal('sk_SK');
+
+    should(getBest(['en', 'en_US', 'en_UK', 'sk_SK'], 'sk-md')).equal(void 0);
+    should(getBest(['en', 'en_US', 'en_UK', 'sk_SK'], 'sk-md', 'en')).equal('en');
+    should(getBest(['en', 'en_US', 'en_UK', 'sk_SK'], 'sk-md', 'en', true)).equal('sk_SK');
+  });
+
+
 });

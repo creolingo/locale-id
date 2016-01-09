@@ -36,8 +36,8 @@ import parse from 'locale-id';
 const locale = parse('sk-sk');
 console.log(result); // => { language: 'sk', country: 'SK' }
 
-const locale = parse('sk_Latin_SK');
-console.log(result); // => { language: 'sk', script: 'Latin', country: 'SK' }
+const value = parse('sk_Latin_SK');
+console.log(value); // => { language: 'sk', script: 'Latin', country: 'SK' }
 ```
 
 ### normalize
@@ -45,8 +45,8 @@ console.log(result); // => { language: 'sk', script: 'Latin', country: 'SK' }
 ```js
 import { normalize } from 'locale-id';
 
-const locale = normalize('sk-sk');
-console.log(result); // => sk_SK
+const value = normalize('sk-sk');
+console.log(value); // => sk_SK
 ```
 
 ### getLanguage
@@ -54,8 +54,8 @@ console.log(result); // => sk_SK
 ```js
 import { getLanguage } from 'locale-id';
 
-const lg = getLanguage('sk-sk');
-console.log(lg); // => sk
+const value = getLanguage('sk-sk');
+console.log(value); // => sk
 ```
 
 ### getCountry
@@ -63,8 +63,8 @@ console.log(lg); // => sk
 ```js
 import { getCountry } from 'locale-id';
 
-const country = getCountry('cs-cz');
-console.log(country); // => CZ
+const value = getCountry('cs-cz');
+console.log(value); // => CZ
 ```
 
 ### getScript
@@ -72,8 +72,8 @@ console.log(country); // => CZ
 ```js
 import { getScript } from 'locale-id';
 
-const script = getScript('sk-latin-sk');
-console.log(script); // => Latin
+const value = getScript('sk-latin-sk');
+console.log(value); // => Latin
 ```
 
 ### getVariant
@@ -81,8 +81,8 @@ console.log(script); // => Latin
 ```js
 import { getVariant } from 'locale-id';
 
-const script = getVariant('sr_Latn_RS_REVISED@currency=USD');
-console.log(script); // => REVISED
+const value = getVariant('sr_Latn_RS_REVISED@currency=USD');
+console.log(value); // => REVISED
 ```
 
 
@@ -91,8 +91,31 @@ console.log(script); // => REVISED
 ```js
 import { getKeyword } from 'locale-id';
 
-const script = getKeyword('sk-latin-sk@currency=USD');
-console.log(script); // => currency=USD
+const value = getKeyword('sk-latin-sk@currency=USD');
+console.log(value); // => currency=USD
+```
+
+### normalizeAcceptLanguage
+
+```js
+import { normalizeAcceptLanguage } from 'locale-id';
+
+const value = normalizeAcceptLanguage('da, en-gb;q=0.8, en;q=0.7');
+console.log(value); // => ['da', 'en_GB', 'en']
+```
+
+### getBest
+
+```js
+import { getBest } from 'locale-id';
+
+getBest(['en', 'en_US', 'en_UK', 'sk_SK'], 'en-uk').should.equal('en_UK');
+getBest(['en', 'en_US', 'en_UK', 'sk_SK'], 'en-br').should.equal('en');
+getBest(['en', 'en_US', 'en_UK', 'sk_SK'], 'sk-SK').should.equal('sk_SK');
+
+should(getBest(['en', 'en_US', 'en_UK', 'sk_SK'], 'sk-md')).equal(void 0);
+should(getBest(['en', 'en_US', 'en_UK', 'sk_SK'], 'sk-md', 'en')).equal('en');
+should(getBest(['en', 'en_US', 'en_UK', 'sk_SK'], 'sk-md', 'en', true)).equal('sk_SK');
 ```
 
 # Running Tests
