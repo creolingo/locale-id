@@ -1,6 +1,6 @@
 # Locale ID
 
-Parse and normalize locale ID
+Parse and normalize locale ID. [ICU Locale ID](http://userguide.icu-project.org/locale)
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
