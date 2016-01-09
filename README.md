@@ -63,7 +63,7 @@ console.log(lg); // => sk
 ```js
 import { getCountry } from 'locale-id';
 
-const country = getLanguage('cs-cz');
+const country = getCountry('cs-cz');
 console.log(country); // => CZ
 ```
 
@@ -72,8 +72,27 @@ console.log(country); // => CZ
 ```js
 import { getScript } from 'locale-id';
 
-const script = getLanguage('sk-latin-sk');
+const script = getScript('sk-latin-sk');
 console.log(script); // => Latin
+```
+
+### getVariant
+
+```js
+import { getVariant } from 'locale-id';
+
+const script = getVariant('sr_Latn_RS_REVISED@currency=USD');
+console.log(script); // => REVISED
+```
+
+
+### getKeyword
+
+```js
+import { getKeyword } from 'locale-id';
+
+const script = getKeyword('sk-latin-sk@currency=USD');
+console.log(script); // => currency=USD
 ```
 
 # Running Tests
