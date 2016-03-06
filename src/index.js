@@ -1,6 +1,6 @@
-import capitalize from 'lodash/string/capitalize';
-import forEach from 'lodash/collection/forEach';
-import isArray from 'lodash/lang/isArray';
+import capitalize from 'lodash/capitalize';
+import forEach from 'lodash/forEach';
+import isArray from 'lodash/isArray';
 
 // http://userguide.icu-project.org/locale
 export default function parse(locale) {

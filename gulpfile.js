@@ -6,10 +6,6 @@ import coveralls from 'gulp-coveralls';
 import path from 'path';
 import { Instrumenter } from 'isparta';
 
-const babelConfig = {
-  stage: 0,
-};
-
 gulp.task('pre-test', () => {
   return gulp.src(['src/**/*.js', '!src/parser/**'])
     .pipe(istanbul({
@@ -22,7 +18,7 @@ gulp.task('pre-test', () => {
 
 gulp.task('test', ['pre-test'], () => {
   return gulp.src('./tests/**/*.js')
-    .pipe(babel(babelConfig))
+    .pipe(babel())
     .pipe(mocha({
       timeout: 20000,
       reporter: 'spec',
@@ -46,7 +42,7 @@ gulp.task('coveralls', ['test'], () => {
 
 gulp.task('build', [], () => {
   return gulp.src('./src/**/*.{js,jsx}')
-    .pipe(babel(babelConfig))
+    .pipe(babel())
     .pipe(gulp.dest('./dist'));
 });
 
