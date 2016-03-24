@@ -6,18 +6,18 @@ import coveralls from 'gulp-coveralls';
 import path from 'path';
 import { Instrumenter } from 'isparta';
 
-gulp.task('pre-test', () => {
-  return gulp.src(['src/**/*.js', '!src/parser/**'])
+gulp.task('pre-test', () =>
+  gulp.src(['src/**/*.js', '!src/parser/**'])
     .pipe(istanbul({
       dir: './coverage',
       instrumenter: Instrumenter,
       includeUntested: true,
     }))
-    .pipe(istanbul.hookRequire());
-});
+    .pipe(istanbul.hookRequire())
+  );
 
-gulp.task('test', ['pre-test'], () => {
-  return gulp.src('./tests/**/*.js')
+gulp.task('test', ['pre-test'], () =>
+  gulp.src('./tests/**/*.js')
     .pipe(babel())
     .pipe(mocha({
       timeout: 20000,
@@ -28,8 +28,8 @@ gulp.task('test', ['pre-test'], () => {
       thresholds: {
         global: 75,
       },
-    }));
-});
+    }))
+);
 
 gulp.task('coveralls', ['test'], () => {
   if (!process.env.CI) {
@@ -40,11 +40,11 @@ gulp.task('coveralls', ['test'], () => {
     .pipe(coveralls());
 });
 
-gulp.task('build', [], () => {
-  return gulp.src('./src/**/*.{js,jsx}')
+gulp.task('build', [], () =>
+  gulp.src('./src/**/*.{js,jsx}')
     .pipe(babel())
-    .pipe(gulp.dest('./dist'));
-});
+    .pipe(gulp.dest('./dist'))
+);
 
 gulp.doneCallback = (err) => {
   process.exit(err ? 1 : 0);

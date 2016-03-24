@@ -111,5 +111,11 @@ describe('LocaleID', () => {
 
     should(getBest(['en_US', 'en_UK', 'sk_SK'], 'en-US', 'sk_SK', true)).equal('en_US');
     should(getBest(['en_US', 'en_UK', 'sk_SK'], 'en', 'sk_SK', true)).equal('en_US');
+
+    // select default locale if locale is not supported
+    should(getBest(['en_US', 'sk_SK'], 'cs_CZ', 'sk_SK')).equal('sk_SK');
+
+    // return undefined if locale is not supported and default locale is not defined
+    should(getBest(['en_US', 'sk_SK'], 'cs_CZ')).equal(void 0);
   });
 });

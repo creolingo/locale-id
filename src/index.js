@@ -1,6 +1,9 @@
 import capitalize from 'lodash/capitalize';
 import forEach from 'lodash/forEach';
 import isArray from 'lodash/isArray';
+import debug from 'debug';
+
+const log = debug('locale-id');
 
 // http://userguide.icu-project.org/locale
 export default function parse(locale) {
@@ -173,9 +176,30 @@ export function prepareSupported(supported) {
 export function getBest(supported, locale, defaultLocale, getAnyCountry) {
   const lgs = isArray(supported) ? prepareSupported(supported) : supported;
 
+  // return defaultLocale if current locale is undefined
+  if (!locale && defaultLocale) {
+    return getBest(supported, defaultLocale, void 0, getAnyCountry);
+  }
+
+  if (!locale) {
+    log(`Locale ${locale} is not supported`);
+    return void 0;
+  }
+
   const { language, country } = parse(locale);
   if (!language) {
     return defaultLocale;
+  }
+
+  // selected locale is not supported
+  if (!lgs[language]) {
+    log(`Locale ${locale} is not supported`);
+
+    if (locale === defaultLocale) {
+      return void 0;
+    }
+
+    return getBest(supported, defaultLocale, null, getAnyCountry);
   }
 
   const { countries, main = defaultLocale, firstCountry } = lgs[language];

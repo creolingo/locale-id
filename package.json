@@ -7,12 +7,6 @@
     "localeID",
     "locale-id"
   ],
-  "files": [
-    "dist/",
-    "package.json",
-    "README.md",
-    "LICENSE"
-  ],
   "scripts": {
     "prepublish": "npm run build",
     "test": "babel-node ./node_modules/gulp/bin/gulp.js test",
@@ -31,7 +25,8 @@
   },
   "homepage": "https://github.com/CherrySoftware/locale-id",
   "dependencies": {
-    "lodash": "^4.6.1"
+    "lodash": "^4.6.1",
+    "debug": "^2.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
