@@ -1,3 +1,4 @@
+// flow
 import capitalize from 'lodash/capitalize';
 import forEach from 'lodash/forEach';
 import isArray from 'lodash/isArray';
@@ -8,7 +9,7 @@ const log = debug('locale-id');
 // http://userguide.icu-project.org/locale
 export default function parse(locale) {
   if (!locale) {
-    return void 0;
+    return undefined;
   }
 
   // extract keyword
@@ -17,7 +18,7 @@ export default function parse(locale) {
 
   const keyword = keywordPos !== -1
     ? stringLocale.substr(keywordPos + 1)
-    : void 0;
+    : undefined;
 
   const localeWithoutKeyword = keywordPos !== -1
     ? stringLocale.substr(0, keywordPos)
@@ -29,12 +30,12 @@ export default function parse(locale) {
     .split('_');
 
   if (!parts.length || parts.length > 4) {
-    return void 0;
+    return undefined;
   }
 
   const language = parts.shift();
   if (!language) {
-    return void 0;
+    return undefined;
   }
 
   const retVar = {
@@ -78,27 +79,27 @@ export default function parse(locale) {
 
 export function getLanguage(locale) {
   const obj = parse(locale);
-  return obj ? obj.language : void 0;
+  return obj && obj.language;
 }
 
 export function getCountry(locale) {
   const obj = parse(locale);
-  return obj ? obj.country : void 0;
+  return obj && obj.country;
 }
 
 export function getScript(locale) {
   const obj = parse(locale);
-  return obj ? obj.script : void 0;
+  return obj && obj.script;
 }
 
 export function getVariant(locale) {
   const obj = parse(locale);
-  return obj ? obj.variant : void 0;
+  return obj && obj.variant;
 }
 
 export function getKeyword(locale) {
   const obj = parse(locale);
-  return obj ? obj.keyword : void 0;
+  return obj && obj.keyword;
 }
 
 export function normalize(locale, delimeter = '_') {
@@ -153,8 +154,8 @@ export function prepareSupported(supported) {
     if (!lgs[language]) {
       lgs[language] = {
         countries: {},
-        firstCountry: void 0,
-        main: void 0,
+        firstCountry: undefined,
+        main: undefined,
       };
     }
 
@@ -178,12 +179,12 @@ export function getBest(supported, locale, defaultLocale, getAnyCountry) {
 
   // return defaultLocale if current locale is undefined
   if (!locale && defaultLocale) {
-    return getBest(supported, defaultLocale, void 0, getAnyCountry);
+    return getBest(supported, defaultLocale, undefined, getAnyCountry);
   }
 
   if (!locale) {
     log(`Locale ${locale} is not supported`);
-    return void 0;
+    return undefined;
   }
 
   const { language, country } = parse(locale);
@@ -196,7 +197,7 @@ export function getBest(supported, locale, defaultLocale, getAnyCountry) {
     log(`Locale ${locale} is not supported`);
 
     if (locale === defaultLocale) {
-      return void 0;
+      return undefined;
     }
 
     return getBest(supported, defaultLocale, null, getAnyCountry);

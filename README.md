@@ -8,11 +8,11 @@ Parse and normalize locale ID. [ICU Locale ID](http://userguide.icu-project.org/
 
 [npm-image]: https://img.shields.io/npm/v/locale-id.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/locale-id
-[travis-image]: https://img.shields.io/travis/CherrySoftware/locale-id/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/CherrySoftware/locale-id
-[coveralls-image]: https://img.shields.io/coveralls/CherrySoftware/locale-id/master.svg?style=flat-square
-[coveralls-url]: https://coveralls.io/r/CherrySoftware/locale-id?branch=master
-[github-url]: https://github.com/CherrySoftware/locale-id
+[travis-image]: https://img.shields.io/travis/CherryProjects/locale-id/master.svg?style=flat-square
+[travis-url]: https://travis-ci.org/CherryProjects/locale-id
+[coveralls-image]: https://img.shields.io/coveralls/CherryProjects/locale-id/master.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/r/CherryProjects/locale-id?branch=master
+[github-url]: https://github.com/CherryProjects/locale-id
 
 # Installation
 

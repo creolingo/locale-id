@@ -1,16 +1,15 @@
 language: node_js
 node_js:
-    - "0.12"
-    - iojs
-    - "4"
-    - "5"
-script: npm test
+    - "6"
+    - "7"
+    - "8"
+    - "9"
+    - "10"
+    - "11"
+script: npm run test:coverage
 notifications:
     email:
         recipients:
-            - zlatkofedor@cherrysro.com
+            - zfedor@gmail.com
         on_success: change
         on_failure: always
-
-after_script:
- - ./node_modules/.bin/babel-node ./node_modules/.bin/gulp coveralls
