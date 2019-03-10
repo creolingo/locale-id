@@ -1,12 +1,15 @@
 {
   "name": "locale-id",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Parse and normalize locale id",
   "main": "./dist/index.js",
   "browser": "./lib/index.js",
   "module": "./module/index.js",
   "esnext": "./src/index.js",
   "sideEffects": false,
+  "engines": {
+    "node": ">= 6.0.0"
+  },
   "keywords": [
     "localeId",
     "locale-id"
