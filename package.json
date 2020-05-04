@@ -15,7 +15,7 @@
     "locale-id"
   ],
   "scripts": {
-    "prepublish": "npm run build",
+    "prepublish": "npm run snyk-protect && npm run build",
     "test": "jest ./src/",
     "test:coverage": "jest --coverage ./src/",
     "test:watch": "jest --watch ./src/",
@@ -23,7 +23,8 @@
     "build:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./module --source-maps --copy-files",
     "build:node": "babel ./src --out-dir ./dist --source-maps --copy-files",
     "build": "npm run build:node && npm run build:browser && npm run build:module",
-    "eslint": "node ./node_modules/eslint/bin/eslint.js --ext .js,.jsx ./src"
+    "eslint": "node ./node_modules/eslint/bin/eslint.js --ext .js,.jsx ./src",
+    "snyk-protect": "snyk protect"
   },
   "repository": {
     "type": "git",
@@ -38,7 +39,8 @@
   "dependencies": {
     "@babel/runtime": "^7.3.4",
     "lodash": "^4.17.11",
-    "debug": "^3.2.6"
+    "debug": "^3.2.6",
+    "snyk": "^1.317.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -75,5 +77,6 @@
     "eslint-plugin-react": "^7.12.4",
     "jest": "^24.3.1",
     "jest-cli": "^24.3.1"
-  }
+  },
+  "snyk": true
 }
